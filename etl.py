@@ -4,8 +4,13 @@ import psycopg2
 import pandas as pd
 from sql_queries import *
 
-##### THIS FUNCTION JUST ADDED FOR FUN 
+
 def indexing(df,lst):
+    """
+    I'm using indexing function just to reduce typing time.
+    This function accepts a df and a list of columns indices.
+    It will create a list of values of the df columns selected by corresponding indices.
+    """
     l = []
     for i in lst:
         l.append(df.columns[i])
@@ -13,6 +18,7 @@ def indexing(df,lst):
 ####
 
 def process_song_file(cur, filepath):
+    """This function reads json file and then inserts selected columns in the tables songs and artists."""
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -26,6 +32,7 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """This function reads json file and then inserts selected columns in the tables time, users and songplays."""
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -80,6 +87,7 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """This function reads and processes all json files from directory."""
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
